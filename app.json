@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "TripadvisorDeRestaurantes",
-    "slug": "TripadvisorDeRestaurantes",
+    "slug": "tripadvisor-de-restaurantes",
+    "owner": "toni.cordon",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,16 +19,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.toni.cordon.tripadvisorderestaurantes"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.toni.cordon.tripadvisorderestaurantes"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2696155c-2c71-4c1c-a53d-1a93ff2cc266"
+      }
     }
   }
 }
