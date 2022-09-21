@@ -1,7 +1,6 @@
-import react from 'react'@expo/webpack-config
 import { View, Text } from 'react-native'
 
-const Account = () => {
+const AccountScreen = () => {
   return (
     <View>
       <Text>Estamos en la screen de Account</Text>
@@ -9,4 +8,4 @@ const Account = () => {
   )
 }
 
-export default Account
+export default AccountScreen
