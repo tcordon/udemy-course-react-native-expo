@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Icon } from '@rneui/base'
+import { screen } from '../data/screensData'
 
 import {
   AccountScreen,
@@ -13,22 +14,23 @@ const Tab = createBottomTabNavigator()
 const tabBarIconOptions = (routeName, focused, color, size) => {
   const iconName = {
     focused: {
-      Restaurant: 'compass',
-      Favorites: 'heart',
-      Search: 'feature-search',
-      Ranking: 'star',
-      Account: 'account',
       Default: 'home'
     },
     nonFocused: {
-      Restaurant: 'compass-outline',
-      Favorites: 'heart-outline',
-      Search: 'feature-search-outline',
-      Ranking: 'star-outline',
-      Account: 'account-outline',
       Default: 'home-outline'
     }
   }
+
+  iconName.focused[screen.restaurant.tab] = 'compass'
+  iconName.nonFocused[screen.restaurant.tab] = 'compass-outline'
+  iconName.focused[screen.favorites.tab] = 'heart'
+  iconName.nonFocused[screen.favorites.tab] = 'heart-outline'
+  iconName.focused[screen.search.tab] = 'feature-search'
+  iconName.nonFocused[screen.search.tab] = 'feature-search-outline'
+  iconName.focused[screen.ranking.tab] = 'star'
+  iconName.nonFocused[screen.ranking.tab] = 'star-outline'
+  iconName.focused[screen.account.tab] = 'account'
+  iconName.nonFocused[screen.account.tab] = 'account-outline'
 
   const isFocused = focused ? 'focused' : 'nonFocused'
   const name = iconName[isFocused][routeName || 'Default']
@@ -52,11 +54,11 @@ const AppNavigation = () => {
       }
     )}
     >
-      <Tab.Screen name='Search' component={SearchScreen} />
-      <Tab.Screen name='Ranking' component={RankingScreen} />
-      <Tab.Screen name='Restaurant' component={RestaurantsScreen} />
-      <Tab.Screen name='Account' component={AccountScreen} />
-      <Tab.Screen name='Favorites' component={FavoritesScreen} />
+      <Tab.Screen name={screen.restaurant.tab} component={RestaurantsScreen} options={{ title: 'Restaurantes' }} />
+      <Tab.Screen name={screen.favorites.tab} component={FavoritesScreen} options={{ title: 'Favoritos' }} />
+      <Tab.Screen name={screen.ranking.tab} component={RankingScreen} options={{ title: 'Ranking' }} />
+      <Tab.Screen name={screen.search.tab} component={SearchScreen} options={{ title: 'Buscar' }} />
+      <Tab.Screen name={screen.account.tab} component={AccountScreen} options={{ title: 'Cuenta' }} />
     </Tab.Navigator>
   )
 }
