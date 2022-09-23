@@ -3,23 +3,39 @@ const restaurantStack = {
   icon: {
     focused: 'compass',
     nonFocused: 'compass-outline'
+  },
+  screens: {
+    restaurants: 'Restaurantes',
+    addRestaurant: 'Añadir Restaurante'
   }
 }
 
 const favoritesStack = {
-  tab: 'FavoritesTab'
+  tab: 'FavoritesTab',
+  screens: {
+    favourites: 'Favoritos'
+  }
 }
 
 const rankingStack = {
-  tab: 'RankingTab'
+  tab: 'RankingTab',
+  screens: {
+    ranking: 'Ranking'
+  }
 }
 
 const searchStack = {
-  tab: 'SearchTab'
+  tab: 'SearchTab',
+  screens: {
+    search: 'Buscar'
+  }
 }
 
 const accountStack = {
-  tab: 'AccountTab'
+  tab: 'AccountTab',
+  screens: {
+    account: 'Cuenta'
+  }
 }
 
 export const screen = {

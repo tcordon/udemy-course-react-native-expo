@@ -2,13 +2,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Icon } from '@rneui/base'
 import { screen } from '../data/screensData'
 
-import {
-  AccountScreen,
-  FavoritesScreen,
-  RankingScreen,
-  RestaurantsScreen,
-  SearchScreen
-} from '../screens'
+import { RestaurantsStack } from '../navigation/RestaurantsStack'
+import { FavoritesStack } from '../navigation/FavoritesStack'
+import { RankingStack } from '../navigation/RankingStack'
+import { SearchStack } from '../navigation/SearchStack'
+import { AccountStack } from '../navigation/AccountStack'
 
 const Tab = createBottomTabNavigator()
 const tabBarIconOptions = (routeName, focused, color, size) => {
@@ -48,17 +46,38 @@ const AppNavigation = () => {
   return (
     <Tab.Navigator screenOptions={({ route: { name: routeName } }) => (
       {
+        headerShown: false,
         tabBarActiveTintColor: '#0000FF',
         tabBarInactiveTintColor: '#646464',
         tabBarIcon: ({ focused, color, size }) => tabBarIconOptions(routeName, focused, color, size)
       }
     )}
     >
-      <Tab.Screen name={screen.restaurant.tab} component={RestaurantsScreen} options={{ title: 'Restaurantes' }} />
-      <Tab.Screen name={screen.favorites.tab} component={FavoritesScreen} options={{ title: 'Favoritos' }} />
-      <Tab.Screen name={screen.ranking.tab} component={RankingScreen} options={{ title: 'Ranking' }} />
-      <Tab.Screen name={screen.search.tab} component={SearchScreen} options={{ title: 'Buscar' }} />
-      <Tab.Screen name={screen.account.tab} component={AccountScreen} options={{ title: 'Cuenta' }} />
+      <Tab.Screen
+        name={screen.restaurant.tab}
+        component={RestaurantsStack}
+        options={{ title: 'Restaurante' }}
+      />
+      <Tab.Screen
+        name={screen.favorites.tab}
+        component={FavoritesStack}
+        options={{ title: 'FAvoritos' }}
+      />
+      <Tab.Screen
+        name={screen.ranking.tab}
+        component={RankingStack}
+        options={{ title: 'Ranking' }}
+      />
+      <Tab.Screen
+        name={screen.search.tab}
+        component={SearchStack}
+        options={{ title: 'Buscar' }}
+      />
+      <Tab.Screen
+        name={screen.account.tab}
+        component={AccountStack}
+        options={{ title: 'Cuenta' }}
+      />
     </Tab.Navigator>
   )
 }
