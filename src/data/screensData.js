@@ -35,7 +35,8 @@ const accountStack = {
   tab: 'AccountTab',
   screens: {
     account: 'Cuenta',
-    login: 'Login'
+    login: 'Login',
+    register: 'Register'
   }
 }
 
