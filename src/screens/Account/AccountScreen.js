@@ -9,12 +9,10 @@ const AccountScreen = () => {
   const [hasLogged, setHasLogged] = useState(null)
 
   useEffect(() => {
-    setTimeout(() => {
-      const auth = getAuth()
-      onAuthStateChanged(auth, (user) => {
-        setHasLogged(user || false)
-      })
-    }, 5000)
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      setHasLogged(user || false)
+    })
   }, [])
 
   if (hasLogged === null) {

@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { screen } from '../data/screensData'
-import { AccountScreen } from '../screens'
+import { AccountScreen, LoginScreen } from '../screens'
 
 const Stack = createNativeStackNavigator()
 
@@ -11,6 +11,12 @@ const AccountStack = () => {
       <Stack.Screen
         name={screen.account.screens.account}
         component={AccountScreen}
+        options={{ title: 'Cuenta' }}
+      />
+      <Stack.Screen
+        name={screen.account.screens.login}
+        component={LoginScreen}
+        options={{ title: 'Iniciar Sesión' }}
       />
     </Stack.Navigator>
   )

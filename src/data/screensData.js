@@ -34,7 +34,8 @@ const searchStack = {
 const accountStack = {
   tab: 'AccountTab',
   screens: {
-    account: 'Cuenta'
+    account: 'Cuenta',
+    login: 'Login'
   }
 }
 
