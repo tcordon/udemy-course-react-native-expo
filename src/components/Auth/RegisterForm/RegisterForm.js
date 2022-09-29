@@ -6,7 +6,7 @@ import { style } from './RegisterForm.styles'
 
 export function RegisterForm () {
   return (
-    <View>
+    <View style={style.content}>
       <Input
         placeholder='Correo electrónico'
         containerStyle={style.input}
