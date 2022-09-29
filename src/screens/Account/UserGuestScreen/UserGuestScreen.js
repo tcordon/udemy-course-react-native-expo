@@ -10,7 +10,6 @@ export function UserGuestScreen () {
   const navigation = useNavigation()
 
   const gotoLogin = () => {
-    console.log('Todo: Ir al login')
     navigation.navigate(screen.account.screens.login)
   }
 
