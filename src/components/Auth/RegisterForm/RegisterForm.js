@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View } from 'react-native'
 import { Input, Icon, Button } from '@rneui/base'
 import { useFormik } from 'formik'
@@ -16,6 +16,11 @@ export function RegisterForm () {
       console.log(formValue)
     }
   })
+
+  const [showPassword, setShowPassword] = useState(false)
+  const showHidePassword = () => {
+    setShowPassword(!showPassword)
+  }
   return (
     <View style={style.content}>
       <Input
@@ -26,18 +31,32 @@ export function RegisterForm () {
         errorMessage={formik.errors.email}
       />
       <Input
-        secureTextEntry
+        secureTextEntry={showPassword}
         placeholder='Contraseña'
         containerStyle={style.input}
-        rightIcon={<Icon type='material-community' name='eye-outline' iconStyle={style.icon} />}
+        rightIcon={
+          <Icon
+            type='material-community'
+            name={showPassword ? 'eye-outline' : 'eye-off-outline'}
+            iconStyle={style.icon}
+            onPress={showHidePassword}
+          />
+        }
         onChangeText={text => formik.setFieldValue('password', text)}
         errorMessage={formik.errors.password}
       />
       <Input
-        secureTextEntry
+        secureTextEntry={showPassword}
         placeholder='Repetir contraseña'
         containerStyle={style.input}
-        rightIcon={<Icon type='material-community' name='eye-outline' iconStyle={style.icon} />}
+        rightIcon={
+          <Icon
+            type='material-community'
+            name={showPassword ? 'eye-outline' : 'eye-off-outline'}
+            iconStyle={style.icon}
+            onPress={showHidePassword}
+          />
+        }
         onChangeText={text => formik.setFieldValue('repeatPassword', text)}
         errorMessage={formik.errors.repeatPassword}
       />
