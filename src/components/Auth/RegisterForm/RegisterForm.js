@@ -2,22 +2,42 @@ import React, { useState } from 'react'
 import { View } from 'react-native'
 import { Input, Icon, Button } from '@rneui/base'
 import { useFormik } from 'formik'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { useNavigation } from '@react-navigation/native'
+import Toast from 'react-native-toast-message'
 
+import { screen } from '../../../data/screensData'
 import { style } from './RegisterForm.styles'
 import { initialValues, validationSchema } from './RegisterForm.data'
 
 export function RegisterForm () {
+  const [showPassword, setShowPassword] = useState(false)
+  const navigation = useNavigation()
+
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
     validateOnChange: false,
-    onSubmit: (formValue) => {
-      console.log('Form Enviado')
-      console.log(formValue)
+    onSubmit: async (formValue) => {
+      try {
+        const auth = getAuth()
+        await createUserWithEmailAndPassword(
+          auth,
+          formValue.email,
+          formValue.password
+        )
+        navigation.navigate(screen.account.screens.account)
+      } catch (error) {
+        console.log(error)
+        Toast.show({
+          type: 'error',
+          position: 'bottom',
+          text: 'Error al registrarse, intentelo más tarde.'
+        })
+      }
     }
   })
 
-  const [showPassword, setShowPassword] = useState(false)
   const showHidePassword = () => {
     setShowPassword(!showPassword)
   }
@@ -31,13 +51,13 @@ export function RegisterForm () {
         errorMessage={formik.errors.email}
       />
       <Input
-        secureTextEntry={showPassword}
+        secureTextEntry={!showPassword}
         placeholder='Contraseña'
         containerStyle={style.input}
         rightIcon={
           <Icon
             type='material-community'
-            name={showPassword ? 'eye-outline' : 'eye-off-outline'}
+            name={showPassword ? 'eye-off-outline' : 'eye-outline'}
             iconStyle={style.icon}
             onPress={showHidePassword}
           />
@@ -46,13 +66,13 @@ export function RegisterForm () {
         errorMessage={formik.errors.password}
       />
       <Input
-        secureTextEntry={showPassword}
+        secureTextEntry={!showPassword}
         placeholder='Repetir contraseña'
         containerStyle={style.input}
         rightIcon={
           <Icon
             type='material-community'
-            name={showPassword ? 'eye-outline' : 'eye-off-outline'}
+            name={showPassword ? 'eye-off-outline' : 'eye-outline'}
             iconStyle={style.icon}
             onPress={showHidePassword}
           />
@@ -65,6 +85,7 @@ export function RegisterForm () {
         containerStyle={style.buttonContainer}
         buttonStyle={style.button}
         onPress={formik.handleSubmit}
+        loading={formik.isSubmitting}
       />
     </View>
   )
