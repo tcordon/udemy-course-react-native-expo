@@ -2,6 +2,7 @@ import React from 'react'
 import { View, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Text, Image } from '@rneui/base'
+import { LoginForm } from '../../../components/Auth'
 
 import { style } from './LoginScreen.styles'
 import { screen } from '../../../data/screensData'
@@ -19,8 +20,10 @@ export function LoginScreen () {
         style={style.image}
       />
       <View style={style.content}>
-        <Text style={style.text}>Estamos en el login</Text>
-        <Text onPress={goToRegister}>Registrarse</Text>
+        <LoginForm />
+        <Text style={style.textRegister} onPress={goToRegister}>
+          ¿Aún no tienes cuenta? <Text style={style.buttonRegister}>Regístrate</Text>
+        </Text>
       </View>
     </ScrollView>
   )
