@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
 import { Input, Icon, Button } from '@rneui/base'
+import { useFormik } from 'formik'
 
 import { style } from './LoginForm.styles'
+import { initialValues, validationSchema } from './LoginForm.data'
 
 export function LoginForm () {
   const [showPassword, setShowPassword] = useState(false)
+  const formik = useFormik({
+    initialValues: initialValues(),
+    validationSchema: validationSchema(),
+    validateOnChange: false
+  })
   return (
     <View style={style.contenedor}>
       <Input
@@ -18,6 +25,8 @@ export function LoginForm () {
             iconStyle={style.icon}
           />
         }
+        onChangeText={text => formik.setFieldValue('email', text)}
+        errorMessage={formik.errors.email}
       />
       <Input
         placeholder='Contraseña'
@@ -32,11 +41,15 @@ export function LoginForm () {
             onPressOut={() => setShowPassword(false)}
           />
         }
+        onChangeText={text => formik.setFieldValue('password', text)}
+        errorMessage={formik.errors.password}
       />
       <Button
         title='Iniciar Sessión'
         containerStyle={style.buttonContainer}
         buttonStyle={style.button}
+        onPress={formik.handleSubmit}
+        loading={formik.isSubmitting}
       />
     </View>
   )
