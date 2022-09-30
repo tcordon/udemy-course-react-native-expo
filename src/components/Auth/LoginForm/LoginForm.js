@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View } from 'react-native'
 import { Input, Icon, Button } from '@rneui/base'
 
 import { style } from './LoginForm.styles'
 
 export function LoginForm () {
+  const [showPassword, setShowPassword] = useState(false)
   return (
     <View style={style.contenedor}>
       <Input
@@ -21,12 +22,14 @@ export function LoginForm () {
       <Input
         placeholder='Contraseña'
         containerStyle={style.input}
-        secureTextEntry
+        secureTextEntry={!showPassword}
         rightIcon={
           <Icon
             type='material-community'
-            name='eye-outline'
+            name={showPassword ? 'eye-off-outline' : 'eye-outline'}
             iconStyle={style.icon}
+            onPressIn={() => setShowPassword(true)}
+            onPressOut={() => setShowPassword(false)}
           />
         }
       />
