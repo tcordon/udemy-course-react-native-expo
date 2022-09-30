@@ -2,16 +2,38 @@ import React, { useState } from 'react'
 import { View } from 'react-native'
 import { Input, Icon, Button } from '@rneui/base'
 import { useFormik } from 'formik'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import Toast from 'react-native-toast-message'
+import { useNavigation } from '@react-navigation/native'
 
+import { screen } from '../../../data/screensData'
 import { style } from './LoginForm.styles'
 import { initialValues, validationSchema } from './LoginForm.data'
 
 export function LoginForm () {
   const [showPassword, setShowPassword] = useState(false)
+  const navigation = useNavigation()
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
-    validateOnChange: false
+    validateOnChange: false,
+    onSubmit: async (formValue) => {
+      try {
+        const auth = getAuth()
+        await signInWithEmailAndPassword(
+          auth,
+          formValue.email,
+          formValue.password
+        )
+        navigation.navigate(screen.account.screens.account)
+      } catch (error) {
+        Toast.show({
+          type: 'error',
+          position: 'bottom',
+          text1: 'Usuario o contraseña incorrectos'
+        })
+      }
+    }
   })
   return (
     <View style={style.contenedor}>

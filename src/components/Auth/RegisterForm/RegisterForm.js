@@ -32,7 +32,7 @@ export function RegisterForm () {
         Toast.show({
           type: 'error',
           position: 'bottom',
-          text: 'Error al registrarse, intentelo más tarde.'
+          text1: 'Error al registrarse, intentelo más tarde.'
         })
       }
     }
