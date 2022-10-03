@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 import { Avatar } from '@rneui/base'
 import { getAuth } from 'firebase/auth'
 import * as ImagePicker from 'expo-image-picker'
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 
 import { style } from './InfoUser.styles'
 
@@ -19,8 +20,16 @@ export function InfoUser () {
     if (!result.cancelled) uploadImage(result.uri)
   }
 
-  const uploadImage = (uri) => {
-    console.log(uri)
+  const uploadImage = async (uri) => {
+    const response = await fetch(uri)
+    const blob = await response.blob()
+
+    const storage = getStorage()
+    const sotrageRef = ref(storage, `avatar/${uid}`)
+
+    uploadBytes(sotrageRef, blob).then((snapshot) => {
+      console.log(snapshot.metadata)
+    })
   }
 
   return (
