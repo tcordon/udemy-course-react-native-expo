@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { Button } from '@rneui/base'
 import { getAuth, signOut } from 'firebase/auth'
 
-import { InfoUser } from '../../../components/Account'
+import { AccountOptions, InfoUser } from '../../../components/Account'
 import { style } from './UserLoggedScreen.styles'
 import { LoadingModal } from '../../../components'
 
@@ -18,7 +18,7 @@ export function UserLoggedScreen () {
   return (
     <View>
       <InfoUser setLoading={setLoading} setLoadingText={setLoadingText} />
-
+      <AccountOptions />
       <Button
         title='Cerrar Sessión'
         buttonStyle={style.button}
