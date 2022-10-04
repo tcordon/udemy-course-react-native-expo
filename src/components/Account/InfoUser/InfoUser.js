@@ -7,7 +7,7 @@ import { getStorage, ref, uploadBytes } from 'firebase/storage'
 
 import { style } from './InfoUser.styles'
 
-export function InfoUser () {
+export function InfoUser ({ setLoading, setLoadingText }) {
   const { uid, photoUrl, displayName, email } = getAuth().currentUser
 
   const changeAvatar = async () => {
@@ -21,6 +21,10 @@ export function InfoUser () {
   }
 
   const uploadImage = async (uri) => {
+    console.log('Uploading image...')
+    setLoading(true)
+    setLoadingText('Actualizando Avatar..')
+
     const response = await fetch(uri)
     const blob = await response.blob()
 
@@ -28,8 +32,13 @@ export function InfoUser () {
     const sotrageRef = ref(storage, `avatar/${uid}`)
 
     uploadBytes(sotrageRef, blob).then((snapshot) => {
-      console.log(snapshot.metadata)
+      updatePhotoUrl(snapshot.metadata.fullPath)
     })
+  }
+
+  const updatePhotoUrl = (imagePath) => {
+    setLoading(false)
+    console.log(imagePath)
   }
 
   return (
