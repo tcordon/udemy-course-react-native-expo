@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text } from 'react-native'
 import { Avatar } from '@rneui/base'
-import { getAuth } from 'firebase/auth'
+import { getAuth, updateProfile } from 'firebase/auth'
 import * as ImagePicker from 'expo-image-picker'
-import { getStorage, ref, uploadBytes } from 'firebase/storage'
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 import { style } from './InfoUser.styles'
 
 export function InfoUser ({ setLoading, setLoadingText }) {
-  const { uid, photoUrl, displayName, email } = getAuth().currentUser
+  const { uid, photoURL, displayName, email } = getAuth().currentUser
+  const [avatar, setAvatar] = useState(photoURL)
 
   const changeAvatar = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -21,7 +22,6 @@ export function InfoUser ({ setLoading, setLoadingText }) {
   }
 
   const uploadImage = async (uri) => {
-    console.log('Uploading image...')
     setLoading(true)
     setLoadingText('Actualizando Avatar..')
 
@@ -36,9 +36,16 @@ export function InfoUser ({ setLoading, setLoadingText }) {
     })
   }
 
-  const updatePhotoUrl = (imagePath) => {
+  const updatePhotoUrl = async (imagePath) => {
+    const storage = getStorage()
+    const imageRef = ref(storage, imagePath)
+    const imageUrl = await getDownloadURL(imageRef)
+
+    const auth = getAuth()
+    updateProfile(auth.currentUser, { photoURL: imageUrl })
+
+    setAvatar(imageUrl)
     setLoading(false)
-    console.log(imagePath)
   }
 
   return (
@@ -46,11 +53,10 @@ export function InfoUser ({ setLoading, setLoadingText }) {
       <Avatar
         size='large'
         rounded
-        icon={{ type: 'material', name: 'person' }}
         containerStyle={style.avatar}
-        source={{ uri: photoUrl }}
+        icon={{ type: 'material', name: 'person' }}
+        source={{ uri: avatar }}
       >
-        <Text />
         <Avatar.Accessory size={24} onPress={changeAvatar} />
       </Avatar>
       <View>
