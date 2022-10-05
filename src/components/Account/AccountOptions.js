@@ -1,9 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View } from 'react-native'
-import { ListItem, Icon } from '@rneui/base'
+import { ListItem, Icon, Text } from '@rneui/base'
+
+import { Modal } from '../Shared'
 
 export function AccountOptions () {
-  const menuOptions = getMenuOptions()
+  const [showModal, setShowModal] = useState(false)
+  const [renderModal, setRenderModal] = useState(null)
+
+  const onCloseOpenModal = () => setShowModal((prevState) => !prevState)
+
+  const selectedComponent = (key) => {
+    const componentOptions = {
+      displayName: {
+        msg: <Text>Cambiar nombre y apellidos</Text>
+      },
+      email: {
+        msg: <Text>Cambiando el email</Text>
+      },
+      password: {
+        msg: <Text>Cambiando la contraseña</Text>
+      }
+    }
+    setRenderModal(componentOptions[key].msg)
+    onCloseOpenModal()
+  }
+
+  const menuOptions = getMenuOptions(selectedComponent)
+
   return (
     <View>
       {
@@ -31,11 +55,14 @@ export function AccountOptions () {
           )
         })
       }
+      <Modal show={showModal} close={onCloseOpenModal}>
+        <Text>{renderModal}</Text>
+      </Modal>
     </View>
   )
 }
 
-function getMenuOptions () {
+function getMenuOptions (selectedComponent) {
   return [
     {
       title: 'Cambiar Nombre y Apellidos',
@@ -44,7 +71,7 @@ function getMenuOptions () {
       iconNameRigth: 'chevron-right',
       iconColorLeft: '#ccc',
       iconColorRigth: '#ccc',
-      handleOnPress: () => console.log('cambiar nombre y apellidos')
+      handleOnPress: () => selectedComponent('displayName')
     },
     {
       title: 'Cambiar email',
@@ -53,7 +80,7 @@ function getMenuOptions () {
       iconNameRigth: 'chevron-right',
       iconColorLeft: '#ccc',
       iconColorRigth: '#ccc',
-      handleOnPress: () => console.log('cambiar email')
+      handleOnPress: () => selectedComponent('email')
     },
     {
       title: 'Cambiar contraseña',
@@ -62,7 +89,7 @@ function getMenuOptions () {
       iconNameRigth: 'chevron-right',
       iconColorLeft: '#ccc',
       iconColorRigth: '#ccc',
-      handleOnPress: () => console.log('cambiar contraseña')
+      handleOnPress: () => selectedComponent('password')
     }
   ]
 }
