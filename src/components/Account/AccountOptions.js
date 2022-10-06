@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { ListItem, Icon, Text } from '@rneui/base'
 
 import { Modal } from '../Shared'
+import { ChangeDisplayNameForm } from './ChangeDisplayNameForm'
 
 export function AccountOptions () {
   const [showModal, setShowModal] = useState(false)
@@ -13,7 +14,7 @@ export function AccountOptions () {
   const selectedComponent = (key) => {
     const componentOptions = {
       displayName: {
-        msg: <Text>Cambiar nombre y apellidos</Text>
+        msg: <ChangeDisplayNameForm onClose={onCloseOpenModal} />
       },
       email: {
         msg: <Text>Cambiando el email</Text>
@@ -56,7 +57,7 @@ export function AccountOptions () {
         })
       }
       <Modal show={showModal} close={onCloseOpenModal}>
-        <Text>{renderModal}</Text>
+        {renderModal}
       </Modal>
     </View>
   )
