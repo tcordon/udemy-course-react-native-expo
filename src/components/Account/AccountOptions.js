@@ -4,6 +4,7 @@ import { ListItem, Icon, Text } from '@rneui/base'
 
 import { Modal } from '../Shared'
 import { ChangeDisplayNameForm } from './ChangeDisplayNameForm'
+import { ChangeEmailForm } from './ChangeEmailForm'
 
 export function AccountOptions (props) {
   const { onReload } = props
@@ -19,7 +20,7 @@ export function AccountOptions (props) {
         msg: <ChangeDisplayNameForm onClose={onCloseOpenModal} onReload={onReload} />
       },
       email: {
-        msg: <Text>Cambiando el email</Text>
+        msg: <ChangeEmailForm onClose={onCloseOpenModal} />
       },
       password: {
         msg: <Text>Cambiando la contraseña</Text>
