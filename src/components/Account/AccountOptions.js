@@ -20,7 +20,7 @@ export function AccountOptions (props) {
         msg: <ChangeDisplayNameForm onClose={onCloseOpenModal} onReload={onReload} />
       },
       email: {
-        msg: <ChangeEmailForm onClose={onCloseOpenModal} />
+        msg: <ChangeEmailForm onClose={onCloseOpenModal} onReload={onReload} />
       },
       password: {
         msg: <Text>Cambiando la contraseña</Text>
