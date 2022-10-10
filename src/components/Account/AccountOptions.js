@@ -5,7 +5,9 @@ import { ListItem, Icon, Text } from '@rneui/base'
 import { Modal } from '../Shared'
 import { ChangeDisplayNameForm } from './ChangeDisplayNameForm'
 
-export function AccountOptions () {
+export function AccountOptions (props) {
+  const { onReload } = props
+
   const [showModal, setShowModal] = useState(false)
   const [renderModal, setRenderModal] = useState(null)
 
@@ -14,7 +16,7 @@ export function AccountOptions () {
   const selectedComponent = (key) => {
     const componentOptions = {
       displayName: {
-        msg: <ChangeDisplayNameForm onClose={onCloseOpenModal} />
+        msg: <ChangeDisplayNameForm onClose={onCloseOpenModal} onReload={onReload} />
       },
       email: {
         msg: <Text>Cambiando el email</Text>

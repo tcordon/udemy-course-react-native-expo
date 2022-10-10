@@ -9,17 +9,18 @@ import { styles } from './ChangeDisplayNameForm.styles'
 import { initialValues, validationSchema } from './ChangeDisplayNameForm.data'
 
 export function ChangeDisplayNameForm (props) {
-  const { onClose } = props
+  const { onClose, onReload } = props
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
       try {
-        const {displayName} = formValue
+        const { displayName } = formValue
         const currentUser = getAuth().currentUser
         await updateProfile(currentUser, { displayName })
 
+        onReload()
         onClose()
       } catch (error) {
         Toast.show({
