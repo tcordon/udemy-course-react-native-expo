@@ -2,17 +2,32 @@ import React from 'react'
 import { View } from 'react-native'
 import { Input, Button } from '@rneui/base'
 import { useFormik } from 'formik'
+import { getAuth, updateProfile } from 'firebase/auth'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 
 import { styles } from './ChangeDisplayNameForm.styles'
 import { initialValues, validationSchema } from './ChangeDisplayNameForm.data'
 
-export function ChangeDisplayNameForm () {
+export function ChangeDisplayNameForm (props) {
+  const { onClose } = props
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
     validateOnChange: false,
-    onSubmit: (formValue) => {
-      console.log(formValue)
+    onSubmit: async (formValue) => {
+      try {
+        const {displayName} = formValue
+        const currentUser = getAuth().currentUser
+        await updateProfile(currentUser, { displayName })
+
+        onClose()
+      } catch (error) {
+        Toast.show({
+          type: 'error',
+          position: 'bottom',
+          text1: 'Error al cambiar el nombre y apellidos'
+        })
+      }
     }
   })
 
