@@ -1,11 +1,25 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import { View } from 'react-native'
 import { Input, Button } from '@rneui/base'
+import { useFormik } from 'formik'
 
 import { styles } from './ChangePasswordForm.styles'
+import { initialValues, validationSchema } from './ChangePasswordForm.data'
 
-export function ChangePasswordForm () {
+export function ChangePasswordForm (props) {
+  const { onClose, onReload } = props
   const [showPassword, setShowPassword] = useState(false)
+  const formik = useFormik({
+    initialValues: initialValues(),
+    validationSchema: validationSchema(),
+    validateOnChange: false,
+    onSubmit: async (formValue) => {
+      console.log(formValue)
+
+      onReload()
+      onClose()
+    }
+  })
 
   const onShowPassword = () => setShowPassword((prevState) => !prevState)
   return (
@@ -20,6 +34,8 @@ export function ChangePasswordForm () {
           onPress: onShowPassword
         }}
         style={styles.input}
+        onChangeText={(text) => formik.setFieldValue('actualPassword', text)}
+        errorMessage={formik.errors.actualPassword}
       />
       <Input
         secureTextEntry={!showPassword}
@@ -31,6 +47,8 @@ export function ChangePasswordForm () {
           onPress: onShowPassword
         }}
         style={styles.input}
+        onChangeText={(text) => formik.setFieldValue('newPassword', text)}
+        errorMessage={formik.errors.newPassword}
       />
       <Input
         secureTextEntry={!showPassword}
@@ -42,11 +60,15 @@ export function ChangePasswordForm () {
           onPress: onShowPassword
         }}
         style={styles.input}
+        onChangeText={(text) => formik.setFieldValue('reNewPassword', text)}
+        errorMessage={formik.errors.reNewPassword}
       />
       <Button
         title='Cambiar Contraseña'
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
+        onPress={formik.handleSubmit}
+        loading={formik.isSubmitting}
       />
     </View>
   )
