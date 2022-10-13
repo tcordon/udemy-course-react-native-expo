@@ -9,7 +9,7 @@ import { styles } from './ChangePasswordForm.styles'
 import { initialValues, validationSchema } from './ChangePasswordForm.data'
 
 export function ChangePasswordForm (props) {
-  const { onClose, onReload } = props
+  const { onClose } = props
   const [showPassword, setShowPassword] = useState(false)
   const formik = useFormik({
     initialValues: initialValues(),
