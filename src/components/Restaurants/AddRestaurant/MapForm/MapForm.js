@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text } from 'react-native'
-import * as Location from 'expo-location'
+import { View  } from 'react-native'
+import * as DeviceLocation from 'expo-location'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import MapView from 'react-native-maps'
 
 import { style } from './MapForm.styles'
 import { Modal } from '../../../Shared'
@@ -9,16 +10,16 @@ import { Modal } from '../../../Shared'
 export function MapForm (props) {
   const { show, close } = props
   const [location, setLocation] = useState({
-    latitude: 0.001,
-    longitude: 0.001,
-    latitudeDelta: 0.001,
-    longitudeDelta: 0.001
+    latitude: 0.01,
+    longitude: 0.01,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01
   })
 
   useEffect(() => {
     (
       async () => {
-        const { status } = await Location.requestForegroundPermissionsAsync()
+        const { status } = await DeviceLocation.requestForegroundPermissionsAsync()
         if (status !== 'granted') {
           Toast.show({
             type: 'info',
@@ -28,10 +29,10 @@ export function MapForm (props) {
           return
         }
 
-        const locationTemp = await Location.getCurrentPositionAsync()
+        const locationTemp = await DeviceLocation.getCurrentPositionAsync()
         setLocation({
-          latitude: locationTemp.latitude,
-          longitude: locationTemp.longitude,
+          latitude: locationTemp.coords.latitude,
+          longitude: locationTemp.coords.longitude,
           latitudeDelta: 0.001,
           longitudeDelta: 0.001
         })
@@ -41,7 +42,19 @@ export function MapForm (props) {
 
   return (
     <Modal show={show} close={close}>
-      <Text>MapForm</Text>
+      <View>
+        <MapView
+          initialRegion={location}
+          showsUserLocation
+          style={style.mapStyle}
+          onRegionChange={(locationTemp) => setLocation(locationTemp)}
+        >
+          <MapView.Marker
+            draggable
+            coordinate={location}
+          />
+        </MapView>
+      </View>
     </Modal>
   )
 }
