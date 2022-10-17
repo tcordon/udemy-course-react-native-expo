@@ -51,7 +51,7 @@ export const InfoForm = (props) => {
         />
       </View>
 
-      <MapForm show={showMap} close={onOpenCloseMap} />
+      <MapForm show={showMap} close={onOpenCloseMap} formik={formik} />
     </>
   )
 }

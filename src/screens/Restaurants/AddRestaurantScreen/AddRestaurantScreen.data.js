@@ -6,7 +6,8 @@ export function initialValues () {
     address: '',
     phone: '',
     email: '',
-    description: ''
+    description: '',
+    location: null
   }
 }
 
@@ -16,6 +17,7 @@ export function validationSchema () {
     address: Yup.string().required('Campo Obligatorio'),
     phone: Yup.string().required('Campo Obligatorio'),
     email: Yup.string().required('Campo Obligatorio').email('El elmail no es valido'),
-    description: Yup.string().required('Campo Obligatorio')
+    description: Yup.string().required('Campo Obligatorio'),
+    location: Yup.object().required('La localización es requerida')
   })
 }
