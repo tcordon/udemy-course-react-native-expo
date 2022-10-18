@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Alert } from 'react-native'
+import { ScrollView } from 'react-native'
 import { Icon, Avatar, Text } from '@rneui/base'
 import * as ImagePeaker from 'expo-image-picker'
 import { getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage'
@@ -53,7 +53,11 @@ export function UploadImageForm (props) {
 
   return (
     <>
-      <View style={style.viewImage}>
+      <ScrollView
+        style={style.viewImage}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      >
         <Icon
           type='material-community'
           name='camera'
@@ -68,7 +72,7 @@ export function UploadImageForm (props) {
             containerStyle={style.imageContainer}
           />
         ))}
-      </View>
+      </ScrollView>
       <Text style={style.error}>{formik.errors.image}</Text>
       <LoadingModal show={isLoading} text='Subiendo imagen...' />
     </>
