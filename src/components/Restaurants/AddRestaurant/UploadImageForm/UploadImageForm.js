@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Alert } from 'react-native'
 import { Icon, Avatar, Text } from '@rneui/base'
 import * as ImagePeaker from 'expo-image-picker'
@@ -6,10 +6,12 @@ import { getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage'
 import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
 
-import { style } from './UploadImage.Form.styles'
+import { style } from './UploadImageForm.styles'
+import { LoadingModal } from '../../../Shared'
 
 export function UploadImageForm (props) {
   const { formik } = props
+  const [isLoading, setIsLoading] = useState(false)
 
   const openGallery = async () => {
     const result = await ImagePeaker.launchImageLibraryAsync({
@@ -20,6 +22,7 @@ export function UploadImageForm (props) {
     })
 
     if (!result.cancelled) {
+      setIsLoading(true)
       uploadImage(result.uri)
     }
   }
@@ -32,8 +35,19 @@ export function UploadImageForm (props) {
     const storageRef = ref(storage, `restaurants/${uuid()}`)
 
     uploadBytes(storageRef, blob).then((snapshot) => {
-      console.log(snapshot)
+      updatePhotosRestaurant(snapshot.metadata.fullPath)
     })
+  }
+
+  const updatePhotosRestaurant = async (imagePath) => {
+    const storage = getStorage()
+    const imageRef = ref(storage, imagePath)
+
+    const imageUrl = await getDownloadURL(imageRef)
+
+    formik.setFieldValue('images', [...formik.values.images, imageUrl])
+
+    setIsLoading(false)
   }
 
   return (
@@ -47,6 +61,8 @@ export function UploadImageForm (props) {
           onPress={openGallery}
         />
       </View>
+      <Text style={style.error}>{formik.errors.image}</Text>
+      <LoadingModal show={isLoading} text='Subiendo imagen...' />
     </>
   )
 }
