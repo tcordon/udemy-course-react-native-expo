@@ -5,6 +5,7 @@ import * as ImagePeaker from 'expo-image-picker'
 import { getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage'
 import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
+import { map } from 'lodash'
 
 import { style } from './UploadImageForm.styles'
 import { LoadingModal } from '../../../Shared'
@@ -60,6 +61,13 @@ export function UploadImageForm (props) {
           containerStyle={style.iconContainer}
           onPress={openGallery}
         />
+        {map(formik.values.images, (image) => (
+          <Avatar
+            key={image}
+            source={{ uri: image }}
+            containerStyle={style.imageContainer}
+          />
+        ))}
       </View>
       <Text style={style.error}>{formik.errors.image}</Text>
       <LoadingModal show={isLoading} text='Subiendo imagen...' />

@@ -19,6 +19,10 @@ export const style = StyleSheet.create({
     color: '#ff0000',
     fontSize: 16,
     paddingLeft: 10
-
+  },
+  imageContainer: {
+    width: 70,
+    height: 70,
+    marginHorizontal: 10
   }
 })
