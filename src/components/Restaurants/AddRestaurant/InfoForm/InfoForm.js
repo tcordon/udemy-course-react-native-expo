@@ -13,6 +13,12 @@ export const InfoForm = (props) => {
     setShowMap((prevState) => !prevState)
   }
 
+  const getColorIconMap = (formik) => {
+    if (formik.errors.location) return '#ff0000'
+    if (formik.values.location) return '#00a680'
+    return '#c2c2c2'
+  }
+
   return (
     <>
       <View style={style.content}>
@@ -28,7 +34,7 @@ export const InfoForm = (props) => {
           rightIcon={{
             type: 'material-community',
             name: 'map-marker-radius',
-            color: '#c2c2c2',
+            color: getColorIconMap(formik),
             onPress: onOpenCloseMap
           }}
         />
