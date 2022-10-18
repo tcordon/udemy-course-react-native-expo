@@ -2,6 +2,9 @@ import React from 'react'
 import { View, Alert } from 'react-native'
 import { Icon, Avatar, Text } from '@rneui/base'
 import * as ImagePeaker from 'expo-image-picker'
+import { getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage'
+import 'react-native-get-random-values'
+import { v4 as uuid } from 'uuid'
 
 import { style } from './UploadImage.Form.styles'
 
@@ -17,8 +20,20 @@ export function UploadImageForm (props) {
     })
 
     if (!result.cancelled) {
-      console.log('upload image')
+      uploadImage(result.uri)
     }
+  }
+
+  const uploadImage = async (uri) => {
+    const response = await fetch(uri)
+    const blob = await response.blob()
+
+    const storage = getStorage()
+    const storageRef = ref(storage, `restaurants/${uuid()}`)
+
+    uploadBytes(storageRef, blob).then((snapshot) => {
+      console.log(snapshot)
+    })
   }
 
   return (
