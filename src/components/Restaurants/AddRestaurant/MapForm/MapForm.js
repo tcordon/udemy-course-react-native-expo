@@ -42,7 +42,6 @@ export function MapForm (props) {
   }, [])
 
   const saveLocation = () => {
-    console.log('save location!', location)
     formik.setFieldValue('location', location)
     close()
   }
