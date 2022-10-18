@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, Alert } from 'react-native'
 import { Icon, Avatar, Text } from '@rneui/base'
 import * as ImagePeaker from 'expo-image-picker'
 import { getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage'
 import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
-import { map } from 'lodash'
+import { map, filter } from 'lodash'
 
 import { style } from './UploadImageForm.styles'
 import { LoadingModal } from '../../../Shared'
@@ -51,6 +51,24 @@ export function UploadImageForm (props) {
     setIsLoading(false)
   }
 
+  const removeImage = (img) => {
+    Alert.alert('Eliminar Image', '¿Estás seguro de eliminar esta imagen?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel'
+        },
+        {
+          text: 'Eliminar',
+          onPress: () => {
+            const result = filter(formik.values.images, (image) => image !== img)
+            formik.setFieldValue('images', result)
+          }
+        }
+      ]
+    )
+  }
+
   return (
     <>
       <ScrollView
@@ -70,6 +88,7 @@ export function UploadImageForm (props) {
             key={image}
             source={{ uri: image }}
             containerStyle={style.imageContainer}
+            onPress={() => removeImage(image)}
           />
         ))}
       </ScrollView>
