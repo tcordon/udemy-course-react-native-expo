@@ -7,7 +7,8 @@ import { collection, Collection, onSnapshot, orderBy, query } from 'firebase/fir
 import { screen } from '../../../data/screensData'
 import { style } from './RestaurantsScreen.styles'
 import { db } from '../../../data/firebase'
-import { LoadingModal } from '../../../components/Shared/LoadingModal'
+import { LoadingModal } from '../../../components/Shared'
+import { ListRestaurant } from '../../../components/Restaurants'
 
 export const RestaurantsScreen = (props) => {
   const { navigation } = props
@@ -41,7 +42,7 @@ export const RestaurantsScreen = (props) => {
       {
         !restaurants
           ? (<LoadingModal show text='Cargando Restaurantes...' />)
-          : (<Text>Estamos en la screen Restaurnats</Text>)
+          : (<ListRestaurant restaurants={restaurants} />)
       }
 
       {
