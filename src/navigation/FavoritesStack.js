@@ -5,7 +5,7 @@ import { FavoritesScreen } from '../screens'
 
 const Stack = createNativeStackNavigator()
 
-const FavoritesStack = () => {
+export const FavoritesStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -14,8 +14,4 @@ const FavoritesStack = () => {
       />
     </Stack.Navigator>
   )
-}
-
-export {
-  FavoritesStack
 }

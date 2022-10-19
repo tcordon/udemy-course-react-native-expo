@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
-import { ListItem, Icon, Text } from '@rneui/base'
+import { ListItem, Icon } from '@rneui/base'
 
 import { Modal } from '../Shared'
 import { ChangeDisplayNameForm } from './ChangeDisplayNameForm'

@@ -42,7 +42,7 @@ const tabBarIconOptions = (routeName, focused, color, size) => {
   )
 }
 
-const AppNavigation = () => {
+export const AppNavigation = () => {
   return (
     <Tab.Navigator screenOptions={({ route: { name: routeName } }) => (
       {
@@ -81,5 +81,3 @@ const AppNavigation = () => {
     </Tab.Navigator>
   )
 }
-
-export default AppNavigation

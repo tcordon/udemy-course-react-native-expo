@@ -5,7 +5,7 @@ import { SearchScreen } from '../screens'
 
 const Stack = createNativeStackNavigator()
 
-const SearchStack = () => {
+export const SearchStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -14,8 +14,4 @@ const SearchStack = () => {
       />
     </Stack.Navigator>
   )
-}
-
-export {
-  SearchStack
 }

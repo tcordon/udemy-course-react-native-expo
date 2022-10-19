@@ -5,7 +5,7 @@ import { RestaurantsScreen, AddRestaurantScreen, RestaurantScreen } from '../scr
 
 const Stack = createNativeStackNavigator()
 
-const RestaurantsStack = () => {
+export const RestaurantsStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -25,8 +25,4 @@ const RestaurantsStack = () => {
       />
     </Stack.Navigator>
   )
-}
-
-export {
-  RestaurantsStack
 }

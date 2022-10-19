@@ -5,7 +5,7 @@ import { AccountScreen, LoginScreen, RegisterScreen } from '../screens'
 
 const Stack = createNativeStackNavigator()
 
-const AccountStack = () => {
+export const AccountStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -25,8 +25,4 @@ const AccountStack = () => {
       />
     </Stack.Navigator>
   )
-}
-
-export {
-  AccountStack
 }

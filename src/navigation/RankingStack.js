@@ -5,7 +5,7 @@ import { RankingScreen } from '../screens'
 
 const Stack = createNativeStackNavigator()
 
-const RankingStack = () => {
+export const RankingStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -14,8 +14,4 @@ const RankingStack = () => {
       />
     </Stack.Navigator>
   )
-}
-
-export {
-  RankingStack
 }

@@ -5,7 +5,7 @@ import { UserGuestScreen } from './UserGuestScreen'
 import { UserLoggedScreen } from './UserLoggedScreen'
 import { LoadingModal } from '../../components/Shared/LoadingModal'
 
-const AccountScreen = () => {
+export const AccountScreen = () => {
   const [hasLogged, setHasLogged] = useState(null)
 
   useEffect(() => {
@@ -23,5 +23,3 @@ const AccountScreen = () => {
     hasLogged ? <UserLoggedScreen /> : <UserGuestScreen />
   )
 }
-
-export default AccountScreen

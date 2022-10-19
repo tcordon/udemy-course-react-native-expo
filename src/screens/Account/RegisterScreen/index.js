@@ -1,5 +1,1 @@
-import { RegisterScreen } from './RegisterScreen'
-
-export {
-  RegisterScreen
-}
+export * from './RegisterScreen'

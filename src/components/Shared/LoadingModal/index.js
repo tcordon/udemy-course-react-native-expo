@@ -1,5 +1,1 @@
-import { LoadingModal } from './LoadingModal'
-
-export {
-  LoadingModal
-}
+export * from './LoadingModal'
