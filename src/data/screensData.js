@@ -6,7 +6,8 @@ const restaurantStack = {
   },
   screens: {
     restaurants: 'Restaurantes',
-    addRestaurant: 'Añadir Restaurante'
+    addRestaurant: 'Añadir Restaurante',
+    restaurant: 'Restaurant'
   }
 }
 
