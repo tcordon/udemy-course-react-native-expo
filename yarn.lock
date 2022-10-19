@@ -13170,6 +13170,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-ratings-movilizame@npm:^9.0.9":
+  version: 9.0.9
+  resolution: "react-native-ratings-movilizame@npm:9.0.9"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 59618aea96e55ede860a6e40233f0cac964fad02ada60247d619d9df45cfd0598eb7b9a9e5cd3e4101fc0741d885c14557196b4ae9768074e3c280ac38390c44
+  languageName: node
+  linkType: hard
+
 "react-native-ratings@npm:^8.1.0":
   version: 8.1.0
   resolution: "react-native-ratings@npm:8.1.0"
@@ -15295,6 +15305,7 @@ __metadata:
     react-native-keyboard-aware-scroll-view: ^0.9.5
     react-native-maps: 0.31.1
     react-native-open-maps: ^0.4.0
+    react-native-ratings-movilizame: ^9.0.9
     react-native-safe-area-context: 4.3.1
     react-native-screens: ~3.15.0
     react-native-toast-message: ^2.1.5
