@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { ScrollView, Text, Dimensions } from 'react-native'
 import { doc, collection, query, where, orderBy, onSnapshot } from 'firebase/firestore'
 
 import { style } from './RestaurantScreen.styles'
 import { db } from '../../../data/firebase'
+import { Carousel } from '../../../components/Shared/Carousel'
 
 export function RestaurantScreen (props) {
   const { route } = props
+  const { width } = Dimensions.get('window')
   const [restaurant, setRestaurant] = useState(null)
 
   useEffect(() => {
@@ -17,9 +19,16 @@ export function RestaurantScreen (props) {
     })
   }, [route.params.id])
 
+  if (!restaurant) return null
+
   return (
-    <View>
+    <ScrollView style={style.content}>
       <Text>RestaurantScreen</Text>
-    </View>
+      <Carousel
+        arrayImages={restaurant.images}
+        height={250}
+        width={width}
+      />
+    </ScrollView>
   )
 }
