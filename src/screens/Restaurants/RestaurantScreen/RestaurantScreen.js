@@ -4,7 +4,7 @@ import { doc, collection, query, where, orderBy, onSnapshot } from 'firebase/fir
 
 import { style } from './RestaurantScreen.styles'
 import { db } from '../../../data/firebase'
-import { Carousel } from '../../../components/Shared/Carousel'
+import { Carousel, Loading } from '../../../components/Shared'
 
 export function RestaurantScreen (props) {
   const { route } = props
@@ -19,7 +19,7 @@ export function RestaurantScreen (props) {
     })
   }, [route.params.id])
 
-  if (!restaurant) return null
+  if (!restaurant) return <Loading show text='Cargando Restaurante...' />
 
   return (
     <ScrollView style={style.content}>

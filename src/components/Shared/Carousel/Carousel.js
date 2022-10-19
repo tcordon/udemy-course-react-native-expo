@@ -8,7 +8,6 @@ export function Carousel (props) {
   const { arrayImages, width, height } = props
 
   const renderItem = ({ item }) => {
-    console.log('item', item)
     return (
       <Image
         source={{ uri: item }}
