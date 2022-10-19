@@ -3,9 +3,8 @@ import { View } from 'react-native'
 import { Button } from '@rneui/base'
 import { getAuth, signOut } from 'firebase/auth'
 
-import { AccountOptions, InfoUser } from '../../../components/Account'
+import { AccountOptions, InfoUser, LoadingModal } from '../../../components'
 import { style } from './UserLoggedScreen.styles'
-import { LoadingModal } from '../../../components'
 
 export function UserLoggedScreen () {
   const [loading, setLoading] = useState(false)
