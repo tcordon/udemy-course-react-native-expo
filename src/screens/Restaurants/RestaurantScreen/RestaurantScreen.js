@@ -4,6 +4,7 @@ import { doc, collection, query, where, orderBy, onSnapshot } from 'firebase/fir
 import { size } from 'lodash'
 
 import { style } from './RestaurantScreen.styles'
+import { Header } from '../../../components/Restaurant'
 import { db } from '../../../data/firebase'
 import { Carousel, Loading } from '../../../components/Shared'
 
@@ -24,13 +25,13 @@ export function RestaurantScreen (props) {
 
   return (
     <ScrollView style={style.content}>
-      <Text>RestaurantScreen</Text>
       <Carousel
         arrayImages={restaurant.images}
         height={250}
         width={width}
         hideDots={!size(restaurant.images) > 1}
       />
+      <Header restaurant={restaurant} />
     </ScrollView>
   )
 }
