@@ -24,11 +24,28 @@ export function BtnReviewForm (props) {
       screen: screen.account.screens.login
     })
   }
+
+  const goToAddReview = () => {
+    navigation.navigate(screen.restaurant.screens.addReviewRestaurant, { idRestaurant })
+  }
+
   return (
     <View style={style.content}>
       {
-        !hasLogged
-          ? <Button title='Escribe una opinión' />
+        hasLogged
+          ? <Button
+              title='Escribe una opinión'
+              icon={
+                {
+                  type: 'material-community',
+                  name: 'square-edit-outline',
+                  color: '#00a680'
+                }
+              }
+              buttonStyle={style.button}
+              titleStyle={style.btnText}
+              onPress={goToAddReview}
+            />
           : (
             <Text style={style.text}>Para escribir una opinión es necesario estar logeado,
               <Text
