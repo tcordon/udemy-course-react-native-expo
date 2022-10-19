@@ -4,7 +4,7 @@ import { doc, collection, query, where, orderBy, onSnapshot } from 'firebase/fir
 import { size } from 'lodash'
 
 import { style } from './RestaurantScreen.styles'
-import { BtnReviewForm, Header, Info } from '../../../components/Restaurant'
+import { BtnReviewForm, Header, Info, Reviews } from '../../../components/Restaurant'
 import { db } from '../../../data/firebase'
 import { Carousel, Loading } from '../../../components/Shared'
 
@@ -33,7 +33,8 @@ export function RestaurantScreen (props) {
       />
       <Header restaurant={restaurant} />
       <Info restaurant={restaurant} />
-      <BtnReviewForm idRestaurant={restaurant.id} />
+      <BtnReviewForm idRestaurant={route.params.id} />
+      <Reviews idRestaurant={route.params.id} />
     </ScrollView>
   )
 }
