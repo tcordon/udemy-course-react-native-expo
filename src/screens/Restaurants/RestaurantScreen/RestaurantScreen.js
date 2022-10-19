@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ScrollView, Text, Dimensions } from 'react-native'
 import { doc, collection, query, where, orderBy, onSnapshot } from 'firebase/firestore'
+import { size } from 'lodash'
 
 import { style } from './RestaurantScreen.styles'
 import { db } from '../../../data/firebase'
@@ -28,6 +29,7 @@ export function RestaurantScreen (props) {
         arrayImages={restaurant.images}
         height={250}
         width={width}
+        hideDots={!size(restaurant.images) > 1}
       />
     </ScrollView>
   )
