@@ -5,7 +5,7 @@ import { getAuth } from 'firebase/auth'
 import { doc, getDocs, query, where, collection, deleteDoc, setDoc } from 'firebase/firestore'
 import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
-import { size } from 'lodash'
+import { size, forEach } from 'lodash'
 
 import { style } from './BtnFavorite.styles'
 import { db } from '../../../data/firebase'
@@ -62,8 +62,18 @@ export function BtnFavorite (props) {
     }
   }
 
-  const removeFavorite = () => {
-    console.log('delete de favoritos')
+  const removeFavorite = async () => {
+    try {
+      const response = await getFavorites()
+      forEach(response, async (item) => {
+        await deleteDoc(
+          doc(db, 'favorites', item.id)
+        )
+        onReload()
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
