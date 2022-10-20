@@ -2,9 +2,11 @@ import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import { Image, Icon, Text } from '@rneui/base'
 import { useNavigation } from '@react-navigation/native'
+import { doc, deleteDoc } from 'firebase/firestore'
 
 import { style } from './RestaurantFavorite.styles'
 import { screen } from '../../data/screensData'
+import { db } from '../../data/firebase'
 
 export function RestaurantFavorite (props) {
   const { restaurant } = props
@@ -20,8 +22,14 @@ export function RestaurantFavorite (props) {
     )
   }
 
-  const onRemoveFavorite = () => {
-    console.log('remove from favorites')
+  const onRemoveFavorite = async () => {
+    try {
+      await deleteDoc(
+        doc(db, 'favorites', restaurant.idFavorite)
+      )
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -35,7 +43,7 @@ export function RestaurantFavorite (props) {
           <Text style={style.name}>{restaurant.name}</Text>
           <Icon
             type='material-community'
-            name='heart-outline'
+            name='heart'
             color='#ff0000'
             size={35}
             containerStyle={style.iconContainer}
