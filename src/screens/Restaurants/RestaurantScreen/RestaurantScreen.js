@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, Text, Dimensions } from 'react-native'
-import { doc, collection, query, where, orderBy, onSnapshot } from 'firebase/firestore'
+import { ScrollView, Dimensions } from 'react-native'
+import { doc, onSnapshot } from 'firebase/firestore'
 import { size } from 'lodash'
 
 import { style } from './RestaurantScreen.styles'
-import { BtnReviewForm, Header, Info, Reviews } from '../../../components/Restaurant'
+import { BtnFavorite, BtnReviewForm, Header, Info, Reviews } from '../../../components/Restaurant'
 import { db } from '../../../data/firebase'
 import { Carousel, Loading } from '../../../components/Shared'
 
@@ -35,6 +35,7 @@ export function RestaurantScreen (props) {
       <Info restaurant={restaurant} />
       <BtnReviewForm idRestaurant={route.params.id} />
       <Reviews idRestaurant={route.params.id} />
+      <BtnFavorite idRestaurant={route.params.id} />
     </ScrollView>
   )
 }
