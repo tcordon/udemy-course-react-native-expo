@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { View } from 'react-native'
-import { Text, AirbnbRating, Avatar }  from '@rneui/themed'
+import { Text, AirbnbRating, Avatar } from '@rneui/themed'
 import { Rating } from 'react-native-ratings-movilizame'
 import { onSnapshot, collection, query, where, orderBy } from 'firebase/firestore'
 import { map, size } from 'lodash'
+import { DateTime } from 'luxon'
+import 'intl'
+import 'intl/locale-data/jsonp/es'
 
 import { style } from './Reviews.styles'
 import { db } from '../../../data/firebase'
@@ -34,12 +37,6 @@ export function Reviews (props) {
       {map(reviews, (review) => {
         const data = review.data()
         const createdReview = new Date(data.createdAt.seconds * 1000)
-        const createdYear = createdReview.getUTCFullYear()
-        const createdMonth = String(createdReview.getUTCMonth() + 1).padStart(2, '0')
-        const createdDay = String(createdReview.getUTCDate()).padStart(2, '0')
-        const createdHour = String(createdReview.getUTCHours()).padStart(2, '0')
-        const createdMinutes = String(createdReview.getUTCMinutes()).padStart(2, '0')
-        const strDate = `${createdYear}/${createdMonth}/${createdDay} - ${createdHour}:${createdMinutes}`
 
         return (
           <ListItem key={data.id} bottomDivider containerStyle={style.review}>
@@ -61,7 +58,7 @@ export function Reviews (props) {
                     isDisabled
                     starContainerStyle={style.starContainer}
                   />
-                  <Text style={style.date}>{strDate}</Text>
+                  <Text style={style.date}>{DateTime.fromISO(createdReview.toISOString()).toFormat('yyyy/LL/dd - hh:mm')}</Text>
                 </View>
               </View>
             </ListItem.Content>
