@@ -2,16 +2,18 @@ import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import { Text, Image, Icon } from '@rneui/base'
 import { Rating } from 'react-native-ratings-movilizame'
+import { useNavigation } from '@react-navigation/native'
 
 import { style } from './RestaurantsRanking.styles'
-import { render } from 'react-dom'
+import { screen } from '../../../data/screensData'
 
 export function RestaurantsRanking (props) {
   const { index, restaurant } = props
   const restaurantData = restaurant.data()
+  const navigation = useNavigation()
 
   const renderMedal = () => {
-    const color = [ '#ffd700', '#bebebe', '#cd7f32']
+    const color = ['#ffd700', '#bebebe', '#cd7f32']
     if (index > 2) {
       return null
     }
@@ -25,9 +27,19 @@ export function RestaurantsRanking (props) {
     )
   }
 
+  const goToRestaurant = () => {
+    navigation.navigate(
+      screen.restaurant.tab,
+      {
+        screen: screen.restaurant.screens.restaurant,
+        params: { id: restaurantData.id }
+      }
+    )
+  }
+
   return (
     <TouchableOpacity
-      onPress={() => console.log('Got to screen!')}
+      onPress={goToRestaurant}
     >
       <View style={style.content}>
         <Image
