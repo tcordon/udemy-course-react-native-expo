@@ -13,6 +13,7 @@ import { db } from '../../../data/firebase'
 export function BtnFavorite (props) {
   const { idRestaurant } = props
   const [isFavorite, setIsFavorite] = useState(undefined)
+  const [isReload, setIsReload] = useState(false)
   const auth = getAuth()
 
   useEffect(() => {
@@ -24,7 +25,9 @@ export function BtnFavorite (props) {
         setIsFavorite(false)
       }
     })()
-  }, [idRestaurant])
+  }, [idRestaurant, isReload])
+
+  const onReload = () => setIsReload((prevState) => !prevState)
 
   const getFavorites = async () => {
     const q = query(
@@ -53,6 +56,7 @@ export function BtnFavorite (props) {
         doc(db, 'favorites', idFavorite),
         data
       )
+      onReload()
     } catch (error) {
       console.log(error)
     }
