@@ -6,10 +6,13 @@ import { size, map } from 'lodash'
 
 import { Loading } from '../components/Shared'
 import { db } from '../data/firebase'
+import { useNavigation } from '@react-navigation/native'
+import { screen } from '../data/screensData'
 
 export const SearchScreen = () => {
   const [searchText, setSearchText] = useState('')
   const [searchResults, setSearchResults] = useState(null)
+  const navigation = useNavigation()
 
   useEffect(() => {
     (async () => {
@@ -25,8 +28,16 @@ export const SearchScreen = () => {
     })()
   }, [searchText])
 
-  const goToRestaurant = () => {
-    console.log('navigate to restaurant...')
+  const goToRestaurant = (idRestaurant) => {
+    navigation.navigate(
+      screen.restaurant.tab,
+      {
+        screen: screen.restaurant.screens.restaurant,
+        params: {
+          id: idRestaurant
+        }
+      }
+    )
   }
 
   return (
@@ -52,7 +63,7 @@ export const SearchScreen = () => {
                     <ListItem
                       key={data.id}
                       bottomDivider
-                      onPress={() => console.log('Go to restaurant')}
+                      onPress={() => goToRestaurant(data.id)}
                     >
                       <Avatar
                         source={{ uri: data.images[0] }}
@@ -64,7 +75,6 @@ export const SearchScreen = () => {
                       <Icon
                         type='material-community'
                         name='chevron-right'
-                        onPress={goToRestaurant}
                       />
                     </ListItem>
                   )
