@@ -10,7 +10,7 @@ import { Loading } from '../components/Shared'
 
 export const FavoritesScreen = () => {
   const [hasLogged, setHasLogged] = useState(null)
-  const [restaurants, setRestaurants] = useState([])
+  const [restaurants, setRestaurants] = useState(null)
   const auth = getAuth()
 
   useEffect(() => {
