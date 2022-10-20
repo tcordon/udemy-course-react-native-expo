@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text } from 'react-native'
+import { ScrollView, Text } from 'react-native'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { doc, getDoc, collection, query, where, onSnapshot } from 'firebase/firestore'
-import { size } from 'lodash'
+import { size, map } from 'lodash'
 
 import { UserNotLogged, NotFoundRestaurant } from '../components/Favorites'
 import { db } from '../data/firebase'
 import { Loading } from '../components/Shared'
+import { RestaurantFavorite } from '../components/RestaurantFavorite'
 
 export const FavoritesScreen = () => {
   const [hasLogged, setHasLogged] = useState(null)
@@ -51,8 +52,10 @@ export const FavoritesScreen = () => {
   }
 
   return (
-    <View>
-      <Text>FavoritesScreen</Text>
-    </View>
+    <ScrollView>
+      {map(restaurants, (restaurant) => {
+        return <RestaurantFavorite key={restaurant.id} restaurant={restaurant} />
+      })}
+    </ScrollView>
   )
 }
